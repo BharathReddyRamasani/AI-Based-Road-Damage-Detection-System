@@ -6,3 +6,4 @@ plotly
 pillow
 kagglehub
 scikit-learn
+streamlit-option-menu
