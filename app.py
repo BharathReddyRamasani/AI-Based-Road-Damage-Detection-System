@@ -30,30 +30,31 @@ html, body, [class*="css"], .stMarkdown {
     font-family: 'Outfit', sans-serif !important;
 }
 .stApp {
-    background: radial-gradient(circle at top left, #121829 0%, #060812 100%) !important;
+    background: radial-gradient(circle at top left, #0e1322 0%, #05070d 100%) !important;
     color: #e2e8f0;
 }
 /* Style section headings with light blue/cyan color and a left border indicator */
 .section-heading {
     color: #38bdf8 !important;
-    font-size: 13.5px !important;
+    font-size: 13px !important;
     font-weight: 700 !important;
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    margin-top: 30px !important;
-    margin-bottom: 16px !important;
-    padding: 6px 12px;
+    margin-top: 35px !important;
+    margin-bottom: 18px !important;
+    padding: 6px 14px;
     background: rgba(56, 189, 248, 0.05);
     border-left: 3px solid #38bdf8;
     border-radius: 0 6px 6px 0;
     display: inline-block;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 /* Clean thin border containers */
 div[data-testid="stVerticalBlockBorderWrapper"] {
-    background: rgba(30, 41, 59, 0.25) !important;
-    backdrop-filter: blur(12px) !important;
-    -webkit-backdrop-filter: blur(12px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    background: rgba(15, 23, 42, 0.2) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.04) !important;
     border-radius: 12px !important;
     padding: 24px !important;
     box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.3) !important;
@@ -61,8 +62,22 @@ div[data-testid="stVerticalBlockBorderWrapper"] {
     margin-bottom: 20px !important;
 }
 div[data-testid="stVerticalBlockBorderWrapper"]:hover {
-    border-color: rgba(56, 189, 248, 0.25) !important;
-    box-shadow: 0 15px 40px 0 rgba(56, 189, 248, 0.05) !important;
+    border-color: rgba(56, 189, 248, 0.2) !important;
+}
+/* Modular Sub-Cards inside Section 2 */
+.sub-card {
+    background: rgba(255, 255, 255, 0.015);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 10px;
+    padding: 20px;
+    height: 100%;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.sub-card:hover {
+    background: rgba(255, 255, 255, 0.035);
+    border-color: rgba(56, 189, 248, 0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
 }
 /* About Section Grid Elements */
 .about-col-title {
@@ -74,7 +89,7 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
     align-items: center;
 }
 .about-col-text {
-    font-size: 13px;
+    font-size: 12.5px;
     line-height: 1.6;
     color: #94a3b8;
 }
@@ -184,7 +199,7 @@ footer {visibility: hidden;}
 }
 .header-title {
     color: #f1f5f9;
-    font-size: 23px;
+    font-size: 24px;
     font-weight: 800;
     margin: 0;
     line-height: 1.2;
@@ -196,7 +211,7 @@ footer {visibility: hidden;}
 }
 .header-subtitle {
     color: #94a3b8;
-    font-size: 13px;
+    font-size: 13.5px;
     margin: 4px 0 0 0;
     font-weight: 400;
 }
@@ -273,13 +288,14 @@ if st.session_state["dataset_path"] and st.session_state["df_metadata"] is None:
         pass
 
 # ----------------- SECTION 1: Header (World Class SaaS Banner) -----------------
+# Refactored title to div block to suppress Streamlit anchor chain icons
 st.markdown(
     """
     <div class="header-container">
         <div class="header-left">
             <div class="header-logo">🛣️</div>
             <div>
-                <h1 class="header-title">AI-Based <span class="gradient-accent">Road Damage Detection System</span></h1>
+                <div class="header-title">AI-Based <span class="gradient-accent">Road Damage Detection System</span></div>
                 <p class="header-subtitle">Smart City Infrastructure Monitoring using CNN</p>
             </div>
         </div>
@@ -324,31 +340,37 @@ with st.container(border=True):
     col_about1, col_about2, col_about3 = st.columns(3, gap="large")
     with col_about1:
         st.markdown(
+            '<div class="sub-card">'
             '<div class="about-col-title">'
             '<span style="color:#38bdf8; margin-right:8px; font-size:12px;">■</span> Importance'
             '</div>'
             '<div class="about-col-text">'
             'Ensure public safety, reduce vehicle wear & accidents, lower city council maintenance costs, and prioritize high-risk repair zones.'
+            '</div>'
             '</div>', 
             unsafe_allow_html=True
         )
     with col_about2:
         st.markdown(
+            '<div class="sub-card">'
             '<div class="about-col-title">'
             '<span style="color:#fb2c8d; margin-right:8px; font-size:12px;">●</span> CNN Classification'
             '</div>'
             '<div class="about-col-text">'
             'Automatically extracts spatial hierarchies, analyzes textures, and performs classifications to replace manual inspection methods.'
+            '</div>'
             '</div>', 
             unsafe_allow_html=True
         )
     with col_about3:
         st.markdown(
+            '<div class="sub-card">'
             '<div class="about-col-title">'
             '<span style="color:#a855f7; margin-right:8px; font-size:12px;">▲</span> Practical Applications'
             '</div>'
             '<div class="about-col-text">'
             'Real-time automated road maintenance, integration with municipal street-sweeper cameras, and prioritized city repair budgets.'
+            '</div>'
             '</div>', 
             unsafe_allow_html=True
         )
