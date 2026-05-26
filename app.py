@@ -30,59 +30,79 @@ html, body, [class*="css"], .stMarkdown {
     font-family: 'Outfit', sans-serif !important;
 }
 .stApp {
-    background-color: #060b16 !important;
-    color: #cbd5e1;
+    background: radial-gradient(circle at top left, #121727 0%, #060812 100%) !important;
+    color: #e2e8f0;
 }
-/* Style section headings with light blue/cyan color */
+/* Style section headings with light blue/cyan color and a left border indicator */
 .section-heading {
     color: #38bdf8 !important;
-    font-size: 16px !important;
+    font-size: 13.5px !important;
     font-weight: 700 !important;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-top: 25px !important;
-    margin-bottom: 12px !important;
-    border-bottom: 1px solid rgba(56, 189, 248, 0.15);
-    padding-bottom: 6px;
+    letter-spacing: 1.5px;
+    margin-top: 30px !important;
+    margin-bottom: 16px !important;
+    padding: 6px 12px;
+    background: rgba(56, 189, 248, 0.05);
+    border-left: 3px solid #38bdf8;
+    border-radius: 0 6px 6px 0;
+    display: inline-block;
 }
 /* Clean thin border containers */
 div[data-testid="stVerticalBlockBorderWrapper"] {
-    background-color: rgba(15, 23, 42, 0.3) !important;
+    background: rgba(30, 41, 59, 0.25) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
     border: 1px solid rgba(255, 255, 255, 0.05) !important;
-    border-radius: 8px !important;
-    padding: 20px !important;
-    box-shadow: none !important;
-    transition: none !important;
-    margin-bottom: 15px !important;
+    border-radius: 12px !important;
+    padding: 24px !important;
+    box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.3) !important;
+    transition: all 0.3s ease-in-out !important;
+    margin-bottom: 20px !important;
 }
 div[data-testid="stVerticalBlockBorderWrapper"]:hover {
-    border-color: rgba(56, 189, 248, 0.2) !important;
+    border-color: rgba(56, 189, 248, 0.25) !important;
+    box-shadow: 0 15px 40px 0 rgba(56, 189, 248, 0.05) !important;
 }
 /* About Section Grid Elements */
 .about-col-title {
-    font-size: 14px;
+    font-size: 14.5px;
     font-weight: 700;
     color: #f1f5f9;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
     display: flex;
     align-items: center;
 }
 .about-col-text {
-    font-size: 12.5px;
-    line-height: 1.5;
+    font-size: 13px;
+    line-height: 1.6;
     color: #94a3b8;
 }
-/* Custom Prediction Banner */
+/* Adaptive Prediction Banners with glowing drop shadows */
 .pred-banner {
-    background-color: rgba(30, 41, 59, 0.4) !important;
-    border: 1px solid rgba(56, 189, 248, 0.3) !important;
-    border-radius: 8px;
-    padding: 24px;
+    border-radius: 12px;
+    padding: 26px;
     text-align: center;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.banner-pothole {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.06) 0%, rgba(15, 23, 42, 0.5) 100%) !important;
+    border-color: rgba(239, 68, 68, 0.25) !important;
+    box-shadow: 0 0 25px rgba(239, 68, 68, 0.12) !important;
+}
+.banner-crack {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.06) 0%, rgba(15, 23, 42, 0.5) 100%) !important;
+    border-color: rgba(245, 158, 11, 0.25) !important;
+    box-shadow: 0 0 25px rgba(245, 158, 11, 0.12) !important;
+}
+.banner-manhole {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.06) 0%, rgba(15, 23, 42, 0.5) 100%) !important;
+    border-color: rgba(16, 185, 129, 0.25) !important;
+    box-shadow: 0 0 25px rgba(16, 185, 129, 0.12) !important;
 }
 .pred-banner-title {
-    color: #38bdf8;
+    color: #94a3b8;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 2px;
@@ -91,11 +111,11 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
 }
 .pred-banner-value {
     color: #f1f5f9;
-    font-size: 26px;
+    font-size: 28px;
     font-weight: 800;
     letter-spacing: 0.5px;
     text-transform: uppercase;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
 }
 /* Pill badges */
 .badge-row {
@@ -105,35 +125,36 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
     align-items: center;
 }
 .pill-badge {
-    padding: 4px 12px;
+    padding: 6px 14px;
     border-radius: 20px;
     font-weight: 600;
-    font-size: 12px;
-    background-color: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
+    font-size: 12.5px;
+    background-color: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: #cbd5e1;
 }
 .pill-pothole {
-    background-color: rgba(239, 68, 68, 0.15);
-    color: #f87171;
-    border-color: rgba(239, 68, 68, 0.25);
+    background-color: rgba(239, 68, 68, 0.15) !important;
+    color: #f87171 !important;
+    border-color: rgba(239, 68, 68, 0.3) !important;
 }
 .pill-crack {
-    background-color: rgba(245, 158, 11, 0.15);
-    color: #fbbf24;
-    border-color: rgba(245, 158, 11, 0.25);
+    background-color: rgba(245, 158, 11, 0.15) !important;
+    color: #fbbf24 !important;
+    border-color: rgba(245, 158, 11, 0.3) !important;
 }
 .pill-manhole {
-    background-color: rgba(16, 185, 129, 0.15);
-    color: #34d399;
-    border-color: rgba(16, 185, 129, 0.25);
+    background-color: rgba(16, 185, 129, 0.15) !important;
+    color: #34d399 !important;
+    border-color: rgba(16, 185, 129, 0.3) !important;
 }
 /* Hide Streamlit default branding */
 #MainMenu {visibility: hidden;}
 footer {visibility: hidden;}
 [data-testid="stFileUploader"] {
-    background-color: rgba(15, 23, 42, 0.2) !important;
+    background-color: rgba(15, 23, 42, 0.25) !important;
     border: 1px dashed rgba(255, 255, 255, 0.1) !important;
-    border-radius: 8px !important;
+    border-radius: 10px !important;
 }
 </style>
 """.replace('\n', ' ')
@@ -170,8 +191,8 @@ if st.session_state["dataset_path"] and st.session_state["df_metadata"] is None:
         pass
 
 # ----------------- SECTION 1: Header (Top-Left) -----------------
-st.markdown('<h2 style="color: #f1f5f9; margin: 0; font-size: 22px; font-weight: 800; padding-bottom: 2px;">AI-Based Road Damage Detection System</h2>', unsafe_allow_html=True)
-st.markdown('<p style="color: #94a3b8; margin: 0; font-size: 13px; margin-bottom: 20px;">Smart City Infrastructure Monitoring using CNN</p>', unsafe_allow_html=True)
+st.markdown('<h2 style="color: #f1f5f9; margin: 0; font-size: 24px; font-weight: 800; padding-bottom: 2px;">AI-Based Road Damage Detection System</h2>', unsafe_allow_html=True)
+st.markdown('<p style="color: #94a3b8; margin: 0; font-size: 13.5px; margin-bottom: 25px;">Smart City Infrastructure Monitoring using CNN</p>', unsafe_allow_html=True)
 
 # Check model availability
 model_exists = os.path.exists(MODEL_PATH)
@@ -202,7 +223,7 @@ with st.container(border=True):
     with col_about1:
         st.markdown(
             '<div class="about-col-title">'
-            '<span style="color:#00f2fe; margin-right:8px; font-size:12px;">■</span> Importance'
+            '<span style="color:#38bdf8; margin-right:8px; font-size:12px;">■</span> Importance'
             '</div>'
             '<div class="about-col-text">'
             'Ensure public safety, reduce vehicle wear & accidents, lower city council maintenance costs, and prioritize high-risk repair zones.'
@@ -212,7 +233,7 @@ with st.container(border=True):
     with col_about2:
         st.markdown(
             '<div class="about-col-title">'
-            '<span style="color:#ff007f; margin-right:8px; font-size:12px;">●</span> CNN Classification'
+            '<span style="color:#fb2c8d; margin-right:8px; font-size:12px;">●</span> CNN Classification'
             '</div>'
             '<div class="about-col-text">'
             'Automatically extracts spatial hierarchies, analyzes textures, and performs classifications to replace manual inspection methods.'
@@ -262,7 +283,7 @@ elif uploaded_file is not None:
 if image_bytes is not None:
     st.markdown("<br>", unsafe_allow_html=True)
     
-    col_preview, col_predict = st.columns([1.2, 1.0], gap="large")
+    col_preview, col_predict = st.columns([1.25, 1.0], gap="large")
     
     # ----------------- LEFT COLUMN: SECTION 4 -- Image Preview -----------------
     with col_preview:
@@ -282,16 +303,19 @@ if image_bytes is not None:
                     if label == "pothole":
                         severity = "High"
                         sev_class = "pill-badge pill-pothole"
+                        banner_class = "pred-banner banner-pothole"
                         priority = "Immediate maintenance recommended."
                         warning = "High-risk road condition detected. Potential vehicle axle damage or accident hazard."
                     elif label == "crack":
                         severity = "Medium"
                         sev_class = "pill-badge pill-crack"
+                        banner_class = "pred-banner banner-crack"
                         priority = "Scheduled sealing recommended."
                         warning = "Moderate-risk road condition. Schedule bituminous crack sealing within the next 3 months to prevent future pothole formation."
                     else:
                         severity = "Low"
                         sev_class = "pill-badge pill-manhole"
+                        banner_class = "pred-banner banner-manhole"
                         priority = "Routine auditing recommended."
                         warning = "Safe road condition detected. Sewer manhole cover or access structure identified."
                         
@@ -299,7 +323,7 @@ if image_bytes is not None:
                     st.markdown('<div class="section-heading">SECTION 5 -- Prediction Area</div>', unsafe_allow_html=True)
                     st.markdown(
                         f"""
-                        <div class="pred-banner">
+                        <div class="{banner_class}">
                             <div class="pred-banner-title">Analysis Result</div>
                             <div class="pred-banner-value">{label} Detected</div>
                             <div class="badge-row">
