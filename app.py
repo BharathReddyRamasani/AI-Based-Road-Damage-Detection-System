@@ -24,20 +24,16 @@ st.set_page_config(
 )
 
 # Load Outfit Google Font and Premium custom CSS Stylesheet
-st.markdown("""
+CSS_STYLE = """
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-/* Global styles and typography overrides */
 html, body, [class*="css"], .stMarkdown {
     font-family: 'Outfit', sans-serif !important;
 }
-
 .stApp {
     background: radial-gradient(circle at top, #191f35 0%, #090c14 100%) !important;
     color: #f1f5f9;
 }
-
-/* Premium Card Design with neon borders and glassmorphism hover animations */
 .premium-card {
     background: linear-gradient(135deg, rgba(30, 41, 59, 0.45) 0%, rgba(15, 23, 42, 0.6) 100%);
     backdrop-filter: blur(16px);
@@ -54,8 +50,6 @@ html, body, [class*="css"], .stMarkdown {
     transform: translateY(-3px);
     box-shadow: 0 15px 50px 0 rgba(0, 242, 254, 0.15);
 }
-
-/* Glowing Typography */
 .glowing-title {
     background: linear-gradient(90deg, #00f2fe 0%, #4facfe 100%);
     -webkit-background-clip: text;
@@ -74,8 +68,6 @@ html, body, [class*="css"], .stMarkdown {
     text-align: center;
     letter-spacing: 0.5px;
 }
-
-/* Grid layout typography */
 .card-section-title {
     color: #00f2fe;
     font-weight: 700;
@@ -91,8 +83,6 @@ html, body, [class*="css"], .stMarkdown {
     color: #cbd5e1;
     margin-bottom: 0;
 }
-
-/* Predictions Styling */
 .metric-row {
     display: flex;
     justify-content: space-between;
@@ -112,8 +102,6 @@ html, body, [class*="css"], .stMarkdown {
     font-size: 17px;
     font-weight: 700;
 }
-
-/* Severity styles */
 .sev-pill {
     padding: 4px 12px;
     border-radius: 20px;
@@ -136,8 +124,6 @@ html, body, [class*="css"], .stMarkdown {
     color: #34d399;
     border: 1px solid rgba(16, 185, 129, 0.3);
 }
-
-/* Recommendations panels */
 .rec-card {
     border-left: 5px solid;
     padding: 18px;
@@ -156,20 +142,14 @@ html, body, [class*="css"], .stMarkdown {
     border-left-color: #10b981;
     background: linear-gradient(90deg, rgba(16, 185, 129, 0.08) 0%, rgba(15, 23, 42, 0.4) 100%);
 }
-
-/* Hide Streamlit default branding */
 #MainMenu {visibility: hidden;}
 footer {visibility: hidden;}
-
-/* File upload zone override */
 [data-testid="stFileUploader"] {
     background: rgba(255, 255, 255, 0.02) !important;
     border: 2px dashed rgba(255, 255, 255, 0.1) !important;
     border-radius: 14px !important;
     padding: 12px !important;
 }
-
-/* Custom progress bars */
 .custom-progress-container {
     width: 100%;
     background-color: rgba(255, 255, 255, 0.05);
@@ -184,7 +164,8 @@ footer {visibility: hidden;}
     transition: width 0.8s ease-in-out;
 }
 </style>
-""", unsafe_allow_html=True)
+""".replace('\n', ' ')
+st.markdown(CSS_STYLE, unsafe_allow_html=True)
 
 # Helper function to get cached dataset path
 def get_cached_dataset_path():
