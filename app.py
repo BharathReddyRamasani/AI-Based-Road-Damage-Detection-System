@@ -5,7 +5,6 @@ import numpy as np
 import tensorflow as tf
 import streamlit as st
 import plotly.express as px
-import plotly.graph_objects as go
 from PIL import Image
 
 import model_utils
@@ -15,15 +14,15 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_PATH = os.path.normpath(os.path.join(BASE_DIR, "road_damage_cnn_model.keras"))
 CACHE_PATH_FILE = os.path.normpath(os.path.join(BASE_DIR, "dataset_path_cache.txt"))
 
-# Page configuration
+# Page configuration - Set to WIDE mode as shown in the screenshot
 st.set_page_config(
-    page_title="AI Road Damage Detection",
+    page_title="AI-Based Road Damage Detection System",
     page_icon="🛣️",
-    layout="centered",
+    layout="wide",
     initial_sidebar_state="collapsed"
 )
 
-# Load Outfit Google Font and Premium custom CSS Stylesheet
+# Widescreen Custom Stylesheet matching the screenshot exactly
 CSS_STYLE = """
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -31,136 +30,110 @@ html, body, [class*="css"], .stMarkdown {
     font-family: 'Outfit', sans-serif !important;
 }
 .stApp {
-    background: radial-gradient(circle at top, #191f35 0%, #090c14 100%) !important;
-    color: #f1f5f9;
+    background-color: #060b16 !important;
+    color: #cbd5e1;
 }
-/* Style all border containers in Streamlit with our premium glassmorphism dark theme */
-div[data-testid="stVerticalBlockBorderWrapper"] {
-    background: linear-gradient(135deg, rgba(30, 41, 59, 0.45) 0%, rgba(15, 23, 42, 0.6) 100%) !important;
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    border-radius: 16px !important;
-    padding: 24px !important;
-    box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.45) !important;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
-    margin-bottom: 20px !important;
-}
-div[data-testid="stVerticalBlockBorderWrapper"]:hover {
-    border-color: rgba(0, 242, 254, 0.25) !important;
-    box-shadow: 0 15px 50px 0 rgba(0, 242, 254, 0.12) !important;
-}
-.glowing-title {
-    background: linear-gradient(90deg, #00f2fe 0%, #4facfe 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-weight: 800;
-    font-size: 38px;
-    margin-bottom: 4px;
-    text-align: center;
-    letter-spacing: -0.5px;
-}
-.glowing-subtitle {
-    font-size: 17px;
-    color: #94a3b8;
-    font-weight: 400;
-    margin-bottom: 30px;
-    text-align: center;
+/* Style section headings with light blue/cyan color */
+.section-heading {
+    color: #38bdf8 !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
     letter-spacing: 0.5px;
-}
-.card-section-title {
-    color: #00f2fe;
-    font-weight: 700;
-    font-size: 18px;
-    margin-top: 0;
-    margin-bottom: 10px;
-    border-bottom: 1px solid rgba(0, 242, 254, 0.1);
+    margin-top: 25px !important;
+    margin-bottom: 12px !important;
+    border-bottom: 1px solid rgba(56, 189, 248, 0.15);
     padding-bottom: 6px;
 }
-.card-text {
+/* Clean thin border containers */
+div[data-testid="stVerticalBlockBorderWrapper"] {
+    background-color: rgba(15, 23, 42, 0.3) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    border-radius: 8px !important;
+    padding: 20px !important;
+    box-shadow: none !important;
+    transition: none !important;
+    margin-bottom: 15px !important;
+}
+div[data-testid="stVerticalBlockBorderWrapper"]:hover {
+    border-color: rgba(56, 189, 248, 0.2) !important;
+}
+/* About Section Grid Elements */
+.about-col-title {
     font-size: 14px;
-    line-height: 1.6;
-    color: #cbd5e1;
-    margin-bottom: 0;
-}
-.metric-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-.metric-row:last-child {
-    border-bottom: none;
-}
-.metric-name {
-    font-size: 14.5px;
-    color: #94a3b8;
-    font-weight: 500;
-}
-.metric-value {
-    font-size: 16px;
     font-weight: 700;
+    color: #f1f5f9;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
 }
-.sev-pill {
+.about-col-text {
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: #94a3b8;
+}
+/* Custom Prediction Banner */
+.pred-banner {
+    background-color: rgba(30, 41, 59, 0.4) !important;
+    border: 1px solid rgba(56, 189, 248, 0.3) !important;
+    border-radius: 8px;
+    padding: 24px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+.pred-banner-title {
+    color: #38bdf8;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+.pred-banner-value {
+    color: #f1f5f9;
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+/* Pill badges */
+.badge-row {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    align-items: center;
+}
+.pill-badge {
     padding: 4px 12px;
     border-radius: 20px;
     font-weight: 600;
-    font-size: 12.5px;
-    letter-spacing: 0.5px;
+    font-size: 12px;
+    background-color: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
 }
-.sev-pill-high {
+.pill-pothole {
     background-color: rgba(239, 68, 68, 0.15);
     color: #f87171;
-    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-color: rgba(239, 68, 68, 0.25);
 }
-.sev-pill-medium {
+.pill-crack {
     background-color: rgba(245, 158, 11, 0.15);
     color: #fbbf24;
-    border: 1px solid rgba(245, 158, 11, 0.3);
+    border-color: rgba(245, 158, 11, 0.25);
 }
-.sev-pill-low {
+.pill-manhole {
     background-color: rgba(16, 185, 129, 0.15);
     color: #34d399;
-    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-color: rgba(16, 185, 129, 0.25);
 }
-.rec-card {
-    border-left: 5px solid;
-    padding: 14px;
-    border-radius: 8px;
-    margin-top: 10px;
-}
-.rec-card-high {
-    border-left-color: #ef4444;
-    background: linear-gradient(90deg, rgba(239, 68, 68, 0.08) 0%, rgba(15, 23, 42, 0.4) 100%);
-}
-.rec-card-medium {
-    border-left-color: #f59e0b;
-    background: linear-gradient(90deg, rgba(245, 158, 11, 0.08) 0%, rgba(15, 23, 42, 0.4) 100%);
-}
-.rec-card-low {
-    border-left-color: #10b981;
-    background: linear-gradient(90deg, rgba(16, 185, 129, 0.08) 0%, rgba(15, 23, 42, 0.4) 100%);
-}
+/* Hide Streamlit default branding */
 #MainMenu {visibility: hidden;}
 footer {visibility: hidden;}
 [data-testid="stFileUploader"] {
-    background: rgba(255, 255, 255, 0.02) !important;
-    border: 2px dashed rgba(255, 255, 255, 0.1) !important;
-    border-radius: 12px !important;
-    padding: 10px !important;
-}
-.custom-progress-container {
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-    height: 8px;
-    margin-top: 6px;
-    overflow: hidden;
-}
-.custom-progress-fill {
-    height: 100%;
-    border-radius: 10px;
+    background-color: rgba(15, 23, 42, 0.2) !important;
+    border: 1px dashed rgba(255, 255, 255, 0.1) !important;
+    border-radius: 8px !important;
 }
 </style>
 """.replace('\n', ' ')
@@ -196,9 +169,9 @@ if st.session_state["dataset_path"] and st.session_state["df_metadata"] is None:
     except Exception:
         pass
 
-# ----------------- SECTION 1: Header -----------------
-st.markdown('<div class="glowing-title">AI-Based Road Damage Detection System</div>', unsafe_allow_html=True)
-st.markdown('<div class="glowing-subtitle">Smart City Infrastructure Monitoring using CNN</div>', unsafe_allow_html=True)
+# ----------------- SECTION 1: Header (Top-Left) -----------------
+st.markdown('<h2 style="color: #f1f5f9; margin: 0; font-size: 22px; font-weight: 800; padding-bottom: 2px;">AI-Based Road Damage Detection System</h2>', unsafe_allow_html=True)
+st.markdown('<p style="color: #94a3b8; margin: 0; font-size: 13px; margin-bottom: 20px;">Smart City Infrastructure Monitoring using CNN</p>', unsafe_allow_html=True)
 
 # Check model availability
 model_exists = os.path.exists(MODEL_PATH)
@@ -223,24 +196,43 @@ if not model_exists:
                 st.rerun()
 
 # ----------------- SECTION 2: About the Project -----------------
-st.markdown("### 📋 About the Project")
+st.markdown('<div class="section-heading">SECTION 2 -- About the Project</div>', unsafe_allow_html=True)
 with st.container(border=True):
-    col_about1, col_about2 = st.columns(2, gap="large")
+    col_about1, col_about2, col_about3 = st.columns(3, gap="large")
     with col_about1:
-        st.markdown('<h5 class="card-section-title">🛣️ Why Road Monitoring is Important?</h5>', unsafe_allow_html=True)
-        st.markdown('<p class="card-text">Road surface deterioration causes billions in vehicle repairs annually and poses serious risks to public safety. Traditional inspections are manual, time-consuming, and labor-intensive. Automated image-based monitoring enables city councils to continuously inspect large road networks, saving repair costs and enhancing civic traffic safety.</p>', unsafe_allow_html=True)
+        st.markdown(
+            '<div class="about-col-title">'
+            '<span style="color:#00f2fe; margin-right:8px; font-size:12px;">■</span> Importance'
+            '</div>'
+            '<div class="about-col-text">'
+            'Ensure public safety, reduce vehicle wear & accidents, lower city council maintenance costs, and prioritize high-risk repair zones.'
+            '</div>', 
+            unsafe_allow_html=True
+        )
     with col_about2:
-        st.markdown('<h5 class="card-section-title">🧠 Role of CNNs in Computer Vision</h5>', unsafe_allow_html=True)
-        st.markdown('<p class="card-text">Convolutional Neural Networks (CNNs) emulate the human visual system by extracting spatial hierarchies of features—ranging from simple edges to complex shapes like potholes. The model automatically learns which texture variations indicate road defects, enabling automated classification with high accuracy.</p>', unsafe_allow_html=True)
-        
-    st.markdown('<div style="margin-top: 24px;"></div>', unsafe_allow_html=True)
-    st.markdown('<h5 class="card-section-title">🏗️ Practical Industry Applications</h5>', unsafe_allow_html=True)
-    st.markdown('<p class="card-text">This system powers real-world municipal technologies. It can be integrated into municipal dashcams on garbage trucks, public buses, or drone surveys to map pavement health. Cities can then automatically schedule repairs, assign priority indices, and track road health over time.</p>', unsafe_allow_html=True)
+        st.markdown(
+            '<div class="about-col-title">'
+            '<span style="color:#ff007f; margin-right:8px; font-size:12px;">●</span> CNN Classification'
+            '</div>'
+            '<div class="about-col-text">'
+            'Automatically extracts spatial hierarchies, analyzes textures, and performs classifications to replace manual inspection methods.'
+            '</div>', 
+            unsafe_allow_html=True
+        )
+    with col_about3:
+        st.markdown(
+            '<div class="about-col-title">'
+            '<span style="color:#a855f7; margin-right:8px; font-size:12px;">▲</span> Practical Applications'
+            '</div>'
+            '<div class="about-col-text">'
+            'Real-time automated road maintenance, integration with municipal street-sweeper cameras, and prioritized city repair budgets.'
+            '</div>', 
+            unsafe_allow_html=True
+        )
 
 # ----------------- SECTION 3: Upload Area -----------------
-st.markdown("### 📤 Upload Road Image")
+st.markdown('<div class="section-heading">SECTION 3 -- Upload Area</div>', unsafe_allow_html=True)
 with st.container(border=True):
-    st.markdown("<p style='font-size:14px; color:#94a3b8; margin-top: 0; margin-bottom: 15px;'>Drag and drop an image of a road surface or upload a file. Supported file formats: JPG, JPEG, PNG.</p>", unsafe_allow_html=True)
     uploaded_file = st.file_uploader(
         label="Upload road image",
         type=["jpg", "jpeg", "png"],
@@ -268,52 +260,17 @@ elif uploaded_file is not None:
 
 # Run prediction pipeline if an image is provided
 if image_bytes is not None:
-    st.markdown("---")
+    st.markdown("<br>", unsafe_allow_html=True)
     
-    col_preview, col_predict = st.columns([1, 1], gap="large")
+    col_preview, col_predict = st.columns([1.2, 1.0], gap="large")
     
-    # ----------------- LEFT COLUMN: Preview & Recommendations -----------------
+    # ----------------- LEFT COLUMN: SECTION 4 -- Image Preview -----------------
     with col_preview:
-        # SECTION 4: Uploaded Image Preview
-        with st.container(border=True):
-            st.markdown("### 📸 Image Preview")
-            pil_img = Image.open(io.BytesIO(image_bytes))
-            st.image(pil_img, use_column_width=True)
+        st.markdown('<div class="section-heading">SECTION 4 -- Image Preview</div>', unsafe_allow_html=True)
+        pil_img = Image.open(io.BytesIO(image_bytes))
+        st.image(pil_img, use_column_width=True)
             
-        # SECTION 7: Recommendations
-        if model_exists:
-            try:
-                label, confidence, detailed_probs, _ = model_utils.predict_damage(MODEL_PATH, image_bytes)
-                if label == "pothole":
-                    rec_class = "rec-card rec-card-high"
-                    priority = "🚨 Immediate repair recommended."
-                    warning = "High-risk road condition detected. Potential vehicle axle damage or accident hazard."
-                elif label == "crack":
-                    rec_class = "rec-card rec-card-medium"
-                    priority = "⚠️ Scheduled sealing recommended."
-                    warning = "Moderate-risk road condition. Schedule bituminous crack sealing within the next 3 months to prevent future pothole formation."
-                else:
-                    rec_class = "rec-card rec-card-low"
-                    priority = "🟢 Routine auditing only."
-                    warning = "Safe road condition detected. Standard sewer manhole/drain structure identified. Perform annual audits."
-                    
-                with st.container(border=True):
-                    st.markdown("### 🛠️ Action Recommendations")
-                    st.markdown(
-                        f"""
-                        <div class="{rec_class}">
-                            <h5 style="margin-top:0; margin-bottom: 8px; font-weight: 700; font-size:15px;">{priority}</h5>
-                            <span style="font-size: 13.5px; line-height: 1.5; color: #f1f5f9; display: block;">
-                                {warning}
-                            </span>
-                        </div>
-                        """,
-                        unsafe_allow_html=True
-                    )
-            except Exception:
-                pass
-
-    # ----------------- RIGHT COLUMN: Predictions & Visualizations -----------------
+    # ----------------- RIGHT COLUMN: Prediction, Visualization & Recommendations -----------------
     with col_predict:
         if not model_exists:
             st.error("Cannot perform prediction: Model is not trained yet.")
@@ -324,47 +281,39 @@ if image_bytes is not None:
                     
                     if label == "pothole":
                         severity = "High"
-                        sev_class = "sev-pill sev-pill-high"
-                        fill_color = "linear-gradient(90deg, #f87171, #ef4444)"
+                        sev_class = "pill-badge pill-pothole"
+                        priority = "Immediate maintenance recommended."
+                        warning = "High-risk road condition detected. Potential vehicle axle damage or accident hazard."
                     elif label == "crack":
                         severity = "Medium"
-                        sev_class = "sev-pill sev-pill-medium"
-                        fill_color = "linear-gradient(90deg, #fbbf24, #f59e0b)"
+                        sev_class = "pill-badge pill-crack"
+                        priority = "Scheduled sealing recommended."
+                        warning = "Moderate-risk road condition. Schedule bituminous crack sealing within the next 3 months to prevent future pothole formation."
                     else:
                         severity = "Low"
-                        sev_class = "sev-pill sev-pill-low"
-                        fill_color = "linear-gradient(90deg, #34d399, #10b981)"
+                        sev_class = "pill-badge pill-manhole"
+                        priority = "Routine auditing recommended."
+                        warning = "Safe road condition detected. Sewer manhole cover or access structure identified."
                         
                     # SECTION 5: Prediction Area
-                    with st.container(border=True):
-                        st.markdown("### 📊 Prediction Details")
-                        st.markdown(
-                            f"""
-                            <div class="metric-row">
-                                <span class="metric-name">Damage Type</span>
-                                <span class="metric-value" style="text-transform: capitalize; color: #00f2fe;">{label} Detected</span>
+                    st.markdown('<div class="section-heading">SECTION 5 -- Prediction Area</div>', unsafe_allow_html=True)
+                    st.markdown(
+                        f"""
+                        <div class="pred-banner">
+                            <div class="pred-banner-title">Analysis Result</div>
+                            <div class="pred-banner-value">{label} Detected</div>
+                            <div class="badge-row">
+                                <span class="pill-badge">Confidence: {confidence * 100:.2f}%</span>
+                                <span class="{sev_class}">Severity: {severity}</span>
                             </div>
-                            <div class="metric-row">
-                                <span class="metric-name">Confidence</span>
-                                <span class="metric-value">{confidence * 100:.2f}%</span>
-                            </div>
-                            <div class="metric-row">
-                                <span class="metric-name">Severity Level</span>
-                                <span class="{sev_class}">{severity}</span>
-                            </div>
-                            <div style="margin-top: 15px;">
-                                <span class="metric-name">Confidence Bar Indicator</span>
-                                <div class="custom-progress-container">
-                                    <div class="custom-progress-fill" style="width: {confidence * 100:.1f}%; background: {fill_color};"></div>
-                                </div>
-                            </div>
-                            """, 
-                            unsafe_allow_html=True
-                        )
+                        </div>
+                        """, 
+                        unsafe_allow_html=True
+                    )
                         
                     # SECTION 6: Visualization Area
+                    st.markdown('<div class="section-heading">SECTION 6 -- Visualization Area</div>', unsafe_allow_html=True)
                     with st.container(border=True):
-                        st.markdown("### 📈 Confidence Visualizer")
                         prob_df = pd.DataFrame({
                             "Anomaly": [c.capitalize() for c in detailed_probs.keys()],
                             "Confidence (%)": [v * 100 for v in detailed_probs.values()]
@@ -376,7 +325,7 @@ if image_bytes is not None:
                             y="Anomaly",
                             orientation="h",
                             color="Anomaly",
-                            color_discrete_sequence=["#fbbf24", "#34d399", "#f87171"],
+                            color_discrete_sequence=["#fbbf24", "#34d399", "#f87171"], # yellow, green, red
                             template="plotly_dark",
                             range_x=[0, 100]
                         )
@@ -391,6 +340,19 @@ if image_bytes is not None:
                             yaxis=dict(showgrid=False, title=None)
                         )
                         st.plotly_chart(fig, use_container_width=True)
+                        
+                    # SECTION 7: Recommendations
+                    st.markdown('<div class="section-heading">SECTION 7 -- Recommendations</div>', unsafe_allow_html=True)
+                    with st.container(border=True):
+                        st.markdown(
+                            f"""
+                            <div style="font-size: 13.5px; line-height: 1.6; color: #f1f5f9;">
+                                <div style="font-weight: 700; color: #38bdf8; margin-bottom: 8px;">Repair Priority: {priority}</div>
+                                <div><b>Safety Warning</b>: {warning}</div>
+                            </div>
+                            """,
+                            unsafe_allow_html=True
+                        )
                         
                 except Exception as e:
                     st.error(f"Error during inference: {e}")
