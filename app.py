@@ -247,7 +247,7 @@ if image_bytes is not None:
         st.markdown("### Uploaded Image Preview")
         st.markdown("<div class='glass-card' style='text-align: center;'>", unsafe_allow_html=True)
         pil_img = Image.open(io.BytesIO(image_bytes))
-        st.image(pil_img, use_container_width=True)
+        st.image(pil_img, use_column_width=True)
         st.markdown("</div>", unsafe_allow_html=True)
         
     # Prediction loop

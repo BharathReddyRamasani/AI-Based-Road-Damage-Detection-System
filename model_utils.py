@@ -3,7 +3,7 @@ import json
 import pandas as pd
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
+from tensorflow.keras.layers import Input, Conv2D, MaxPooling2D, Flatten, Dense, Dropout
 from tensorflow.keras.callbacks import Callback
 from sklearn.model_selection import train_test_split
 
@@ -51,8 +51,9 @@ def load_image(path, label):
 def build_model(num_classes=3):
     """Builds the Keras CNN model exactly as specified in the notebook."""
     model = Sequential([
+        Input(shape=(IMG_SIZE, IMG_SIZE, 3)),
         # Block 1
-        Conv2D(32, (3, 3), activation="relu", input_shape=(IMG_SIZE, IMG_SIZE, 3)),
+        Conv2D(32, (3, 3), activation="relu"),
         MaxPooling2D((2, 2)),
         
         # Block 2
