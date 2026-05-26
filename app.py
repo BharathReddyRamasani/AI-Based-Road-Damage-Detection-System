@@ -23,33 +23,36 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Premium Obsidian Custom CSS Stylesheet
+# Load Outfit Google Font and Premium custom CSS Stylesheet
 st.markdown("""
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-/* Background and text styling */
-.stApp {
-    background: linear-gradient(135deg, #0a0c10 0%, #151922 100%);
-    color: #f0f2f6;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+/* Global styles and typography overrides */
+html, body, [class*="css"], .stMarkdown {
+    font-family: 'Outfit', sans-serif !important;
 }
 
-/* Glassmorphism Containers */
-.glass-card {
-    background: rgba(255, 255, 255, 0.02);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    padding: 24px;
-    margin-bottom: 25px;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35);
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+.stApp {
+    background: radial-gradient(circle at top, #191f35 0%, #090c14 100%) !important;
+    color: #f1f5f9;
 }
-.glass-card:hover {
-    background: rgba(255, 255, 255, 0.035);
-    border-color: rgba(200, 200, 200, 0.12);
-    transform: translateY(-2px);
-    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45);
+
+/* Premium Card Design with neon borders and glassmorphism hover animations */
+.premium-card {
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.45) 0%, rgba(15, 23, 42, 0.6) 100%);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 26px;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.5);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.premium-card:hover {
+    border-color: rgba(0, 242, 254, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 15px 50px 0 rgba(0, 242, 254, 0.15);
 }
 
 /* Glowing Typography */
@@ -58,67 +61,128 @@ st.markdown("""
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-weight: 800;
-    font-size: 38px;
-    margin-bottom: 2px;
+    font-size: 40px;
+    margin-bottom: 4px;
     text-align: center;
+    letter-spacing: -0.5px;
 }
 .glowing-subtitle {
-    font-size: 17px;
-    color: #a0aec0;
-    font-weight: 500;
-    margin-bottom: 25px;
+    font-size: 18px;
+    color: #94a3b8;
+    font-weight: 400;
+    margin-bottom: 30px;
     text-align: center;
     letter-spacing: 0.5px;
 }
 
-/* Status styles */
-.severity-high {
-    color: #ff4757;
-    text-shadow: 0 0 10px rgba(255, 71, 87, 0.4);
+/* Grid layout typography */
+.card-section-title {
+    color: #00f2fe;
     font-weight: 700;
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(0, 242, 254, 0.1);
+    padding-bottom: 6px;
 }
-.severity-medium {
-    color: #ff9f43;
-    text-shadow: 0 0 10px rgba(255, 159, 67, 0.4);
-    font-weight: 700;
+.card-text {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: #cbd5e1;
+    margin-bottom: 0;
 }
-.severity-low {
-    color: #2ed573;
-    text-shadow: 0 0 10px rgba(46, 213, 115, 0.4);
+
+/* Predictions Styling */
+.metric-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.metric-row:last-child {
+    border-bottom: none;
+}
+.metric-name {
+    font-size: 15px;
+    color: #94a3b8;
+    font-weight: 500;
+}
+.metric-value {
+    font-size: 17px;
     font-weight: 700;
 }
 
-/* Clean recommendations panels */
-.rec-box {
+/* Severity styles */
+.sev-pill {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+}
+.sev-pill-high {
+    background-color: rgba(239, 68, 68, 0.15);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+.sev-pill-medium {
+    background-color: rgba(245, 158, 11, 0.15);
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+.sev-pill-low {
+    background-color: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+/* Recommendations panels */
+.rec-card {
     border-left: 5px solid;
-    padding: 15px;
-    border-radius: 4px;
-    background: rgba(255,255,255,0.01);
+    padding: 18px;
+    border-radius: 8px;
+    margin-top: 15px;
 }
-.rec-high {
-    border-left-color: #ff4757;
-    background: rgba(255, 71, 87, 0.05);
+.rec-card-high {
+    border-left-color: #ef4444;
+    background: linear-gradient(90deg, rgba(239, 68, 68, 0.08) 0%, rgba(15, 23, 42, 0.4) 100%);
 }
-.rec-medium {
-    border-left-color: #ff9f43;
-    background: rgba(255, 159, 67, 0.05);
+.rec-card-medium {
+    border-left-color: #f59e0b;
+    background: linear-gradient(90deg, rgba(245, 158, 11, 0.08) 0%, rgba(15, 23, 42, 0.4) 100%);
 }
-.rec-low {
-    border-left-color: #2ed573;
-    background: rgba(46, 213, 115, 0.05);
-}
-
-/* File Upload drag area */
-[data-testid="stFileUploader"] {
-    background: rgba(255, 255, 255, 0.01) !important;
-    border: 2px dashed rgba(255, 255, 255, 0.1) !important;
-    border-radius: 10px !important;
-    padding: 10px !important;
+.rec-card-low {
+    border-left-color: #10b981;
+    background: linear-gradient(90deg, rgba(16, 185, 129, 0.08) 0%, rgba(15, 23, 42, 0.4) 100%);
 }
 
 /* Hide Streamlit default branding */
 #MainMenu {visibility: hidden;}
 footer {visibility: hidden;}
+
+/* File upload zone override */
+[data-testid="stFileUploader"] {
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: 2px dashed rgba(255, 255, 255, 0.1) !important;
+    border-radius: 14px !important;
+    padding: 12px !important;
+}
+
+/* Custom progress bars */
+.custom-progress-container {
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    height: 8px;
+    margin-top: 4px;
+    overflow: hidden;
+}
+.custom-progress-fill {
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.8s ease-in-out;
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -178,29 +242,29 @@ if not model_exists:
                 set_cached_dataset_path(path)
                 st.rerun()
 
-st.markdown("---")
+st.markdown("<br>", unsafe_allow_html=True)
 
 # ----------------- SECTION 2: About the Project -----------------
-st.markdown("### About the Project")
+st.markdown("### 📋 About the Project")
 st.markdown("""
-<div class="glass-card">
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+<div class="premium-card">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
         <div>
-            <h5 style="color: #00f2fe; margin-top:0;">Why Road Monitoring is Important?</h5>
-            <p style="font-size: 13.5px; line-height: 1.6; color: #cbd5e0; margin-bottom: 0;">
+            <h5 class="card-section-title">🛣️ Why Road Monitoring is Important?</h5>
+            <p class="card-text">
                 Road surface deterioration causes billions in vehicle repairs annually and poses serious risks to public safety. Traditional inspections are manual, time-consuming, and labor-intensive. Automated image-based monitoring enables city councils to continuously inspect large road networks, saving repair costs and enhancing civic traffic safety.
             </p>
         </div>
         <div>
-            <h5 style="color: #00f2fe; margin-top:0;">Role of CNNs in Computer Vision</h5>
-            <p style="font-size: 13.5px; line-height: 1.6; color: #cbd5e0; margin-bottom: 0;">
+            <h5 class="card-section-title">🧠 Role of CNNs in Computer Vision</h5>
+            <p class="card-text">
                 Convolutional Neural Networks (CNNs) emulate the human visual system by extracting spatial hierarchies of features—ranging from simple edges to complex shapes like potholes. The model automatically learns which texture variations indicate road defects, enabling automated classification with high accuracy.
             </p>
         </div>
     </div>
-    <div style="margin-top: 18px;">
-        <h5 style="color: #00f2fe; margin-top:0;">Practical Industry Applications</h5>
-        <p style="font-size: 13.5px; line-height: 1.6; color: #cbd5e0; margin-bottom: 0;">
+    <div style="margin-top: 20px;">
+        <h5 class="card-section-title">🏗️ Practical Industry Applications</h5>
+        <p class="card-text">
             This system powers real-world municipal technologies. It can be integrated into municipal dashcams on garbage trucks, public buses, or drone surveys to map pavement health. Cities can then automatically schedule repairs, assign priority indices, and track road health over time.
         </p>
     </div>
@@ -208,8 +272,8 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ----------------- SECTION 3: Upload Area -----------------
-st.markdown("### Upload Road Image")
-st.markdown("<p style='font-size:14px; color:#8a99ad; margin-bottom: 10px;'>Drag and drop an image of a road surface or upload a file. Supported file formats: JPG, JPEG, PNG.</p>", unsafe_allow_html=True)
+st.markdown("### 📤 Upload Road Image")
+st.markdown("<p style='font-size:14px; color:#94a3b8; margin-bottom: 15px;'>Drag and drop an image of a road surface or upload a file. Supported file formats: JPG, JPEG, PNG.</p>", unsafe_allow_html=True)
 
 uploaded_file = st.file_uploader(
     label="Upload road image",
@@ -240,12 +304,12 @@ elif uploaded_file is not None:
 if image_bytes is not None:
     st.markdown("---")
     
-    col_preview, col_predict = st.columns([1, 1])
+    col_preview, col_predict = st.columns([1, 1], gap="large")
     
     # ----------------- SECTION 4: Uploaded Image Preview -----------------
     with col_preview:
-        st.markdown("### Uploaded Image Preview")
-        st.markdown("<div class='glass-card' style='text-align: center;'>", unsafe_allow_html=True)
+        st.markdown("### 📸 Image Preview")
+        st.markdown("<div class='premium-card' style='text-align: center; padding: 12px;'>", unsafe_allow_html=True)
         pil_img = Image.open(io.BytesIO(image_bytes))
         st.image(pil_img, use_column_width=True)
         st.markdown("</div>", unsafe_allow_html=True)
@@ -265,52 +329,59 @@ if image_bytes is not None:
                     # Determine Severity & styling mapping
                     if label == "pothole":
                         severity = "High"
-                        sev_class = "severity-high"
-                        rec_class = "rec-high"
-                        priority = "Immediate maintenance recommended."
-                        warning = "High-risk road condition detected. Potential vehicle axle damage or accidents."
+                        sev_class = "sev-pill sev-pill-high"
+                        rec_class = "rec-card rec-card-high"
+                        priority = "🚨 Immediate repair recommended."
+                        warning = "High-risk road condition detected. Potential vehicle axle damage or accident hazard."
+                        fill_color = "linear-gradient(90deg, #f87171, #ef4444)"
                     elif label == "crack":
                         severity = "Medium"
-                        sev_class = "severity-medium"
-                        rec_class = "rec-medium"
-                        priority = "Scheduled sealing recommended."
-                        warning = "Moderate-risk road condition detected. Requires maintenance within 3 months to prevent pothole formation."
+                        sev_class = "sev-pill sev-pill-medium"
+                        rec_class = "rec-card rec-card-medium"
+                        priority = "⚠️ Scheduled sealing recommended."
+                        warning = "Moderate-risk road condition. Schedule bituminous crack sealing within the next 3 months to prevent future pothole formation."
+                        fill_color = "linear-gradient(90deg, #fbbf24, #f59e0b)"
                     else:  # manhole
                         severity = "Low"
-                        sev_class = "severity-low"
-                        rec_class = "rec-low"
-                        priority = "Routine maintenance only."
-                        warning = "Safe road condition detected. Regular annual audits are sufficient."
+                        sev_class = "sev-pill sev-pill-low"
+                        rec_class = "rec-card rec-card-low"
+                        priority = "🟢 Routine auditing only."
+                        warning = "Safe road condition detected. Standard sewer manhole/drain structure identified. Perform annual audits."
+                        fill_color = "linear-gradient(90deg, #34d399, #10b981)"
                         
                     # ----------------- SECTION 5: Prediction Area -----------------
-                    st.markdown("### Prediction Results")
+                    st.markdown("### 📊 Prediction Details")
                     st.markdown(
                         f"""
-                        <div class="glass-card">
-                            <table style="width:100%; font-size:16px; border-collapse: collapse;">
-                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05); height: 40px;">
-                                    <td style="color:#8a99ad; font-weight:500;">Prediction</td>
-                                    <td style="font-weight:700; text-transform: capitalize;">{label} Detected</td>
-                                </tr>
-                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05); height: 40px;">
-                                    <td style="color:#8a99ad; font-weight:500;">Confidence</td>
-                                    <td style="font-weight:700; color:#00f2fe;">{confidence * 100:.1f}%</td>
-                                </tr>
-                                <tr style="height: 40px;">
-                                    <td style="color:#8a99ad; font-weight:500;">Severity Level</td>
-                                    <td class="{sev_class}">{severity}</td>
-                                </tr>
-                            </table>
+                        <div class="premium-card">
+                            <div class="metric-row">
+                                <span class="metric-name">Damage Type</span>
+                                <span class="metric-value" style="text-transform: capitalize; color: #00f2fe;">{label} Detected</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-name">Confidence</span>
+                                <span class="metric-value">{confidence * 100:.2f}%</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-name">Severity Level</span>
+                                <span class="{sev_class}">{severity}</span>
+                            </div>
+                            <div style="margin-top: 15px;">
+                                <span class="metric-name">Confidence Bar Indicator</span>
+                                <div class="custom-progress-container">
+                                    <div class="custom-progress-fill" style="width: {confidence * 100:.1f}%; background: {fill_color};"></div>
+                                </div>
+                            </div>
                         </div>
                         """, 
                         unsafe_allow_html=True
                     )
                     
                     # ----------------- SECTION 6: Visualization Area -----------------
-                    st.markdown("### Visualization Area")
-                    st.markdown("<div class='glass-card'>", unsafe_allow_html=True)
+                    st.markdown("### 📈 Confidence Visualizer")
+                    st.markdown("<div class='premium-card' style='padding: 12px;'>", unsafe_allow_html=True)
                     
-                    # Simple Plotly bar chart representing prediction probability
+                    # Styled Plotly bar chart representing prediction probability
                     prob_df = pd.DataFrame({
                         "Anomaly": [c.capitalize() for c in detailed_probs.keys()],
                         "Confidence (%)": [v * 100 for v in detailed_probs.values()]
@@ -322,7 +393,7 @@ if image_bytes is not None:
                         y="Anomaly",
                         orientation="h",
                         color="Anomaly",
-                        color_discrete_sequence=["#ff9f43", "#2ed573", "#ff4757"],
+                        color_discrete_sequence=["#fbbf24", "#34d399", "#f87171"], # crack (yellow), manhole (green), pothole (red)
                         template="plotly_dark",
                         range_x=[0, 100]
                     )
@@ -332,20 +403,22 @@ if image_bytes is not None:
                         plot_bgcolor="rgba(0,0,0,0)",
                         showlegend=False,
                         height=160,
-                        margin=dict(l=10, r=10, t=10, b=10)
+                        margin=dict(l=10, r=10, t=10, b=10),
+                        xaxis=dict(showgrid=False, zeroline=False),
+                        yaxis=dict(showgrid=False, title=None)
                     )
                     
                     st.plotly_chart(fig, use_container_width=True)
                     st.markdown("</div>", unsafe_allow_html=True)
                     
                     # ----------------- SECTION 7: Recommendations -----------------
-                    st.markdown("### Recommendations")
+                    st.markdown("### 🛠️ Action Recommendations")
                     st.markdown(
                         f"""
-                        <div class="glass-card rec-box {rec_class}">
-                            <h5 style="margin-top:0; margin-bottom: 8px;">Repair Priority: {priority}</h5>
-                            <span style="font-size: 13.5px; line-height: 1.5; color: #e2e8f0; display: block;">
-                                ⚠️ <b>Safety Warning</b>: {warning}
+                        <div class="{rec_class}">
+                            <h5 style="margin-top:0; margin-bottom: 8px; font-weight: 700; font-size:16px;">{priority}</h5>
+                            <span style="font-size: 13.5px; line-height: 1.5; color: #f1f5f9; display: block;">
+                                {warning}
                             </span>
                         </div>
                         """,
