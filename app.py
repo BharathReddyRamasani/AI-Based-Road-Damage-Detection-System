@@ -34,34 +34,34 @@ html, body, [class*="css"], .stMarkdown {
     background: radial-gradient(circle at top, #191f35 0%, #090c14 100%) !important;
     color: #f1f5f9;
 }
-.premium-card {
-    background: linear-gradient(135deg, rgba(30, 41, 59, 0.45) 0%, rgba(15, 23, 42, 0.6) 100%);
+/* Style all border containers in Streamlit with our premium glassmorphism dark theme */
+div[data-testid="stVerticalBlockBorderWrapper"] {
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.45) 0%, rgba(15, 23, 42, 0.6) 100%) !important;
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 16px;
-    padding: 26px;
-    margin-bottom: 25px;
-    box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.5);
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 16px !important;
+    padding: 24px !important;
+    box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.45) !important;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    margin-bottom: 20px !important;
 }
-.premium-card:hover {
-    border-color: rgba(0, 242, 254, 0.3);
-    transform: translateY(-3px);
-    box-shadow: 0 15px 50px 0 rgba(0, 242, 254, 0.15);
+div[data-testid="stVerticalBlockBorderWrapper"]:hover {
+    border-color: rgba(0, 242, 254, 0.25) !important;
+    box-shadow: 0 15px 50px 0 rgba(0, 242, 254, 0.12) !important;
 }
 .glowing-title {
     background: linear-gradient(90deg, #00f2fe 0%, #4facfe 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-weight: 800;
-    font-size: 40px;
+    font-size: 38px;
     margin-bottom: 4px;
     text-align: center;
     letter-spacing: -0.5px;
 }
 .glowing-subtitle {
-    font-size: 18px;
+    font-size: 17px;
     color: #94a3b8;
     font-weight: 400;
     margin-bottom: 30px;
@@ -78,7 +78,7 @@ html, body, [class*="css"], .stMarkdown {
     padding-bottom: 6px;
 }
 .card-text {
-    font-size: 14.5px;
+    font-size: 14px;
     line-height: 1.6;
     color: #cbd5e1;
     margin-bottom: 0;
@@ -94,19 +94,19 @@ html, body, [class*="css"], .stMarkdown {
     border-bottom: none;
 }
 .metric-name {
-    font-size: 15px;
+    font-size: 14.5px;
     color: #94a3b8;
     font-weight: 500;
 }
 .metric-value {
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 700;
 }
 .sev-pill {
     padding: 4px 12px;
     border-radius: 20px;
     font-weight: 600;
-    font-size: 13px;
+    font-size: 12.5px;
     letter-spacing: 0.5px;
 }
 .sev-pill-high {
@@ -126,9 +126,9 @@ html, body, [class*="css"], .stMarkdown {
 }
 .rec-card {
     border-left: 5px solid;
-    padding: 18px;
+    padding: 14px;
     border-radius: 8px;
-    margin-top: 15px;
+    margin-top: 10px;
 }
 .rec-card-high {
     border-left-color: #ef4444;
@@ -147,21 +147,20 @@ footer {visibility: hidden;}
 [data-testid="stFileUploader"] {
     background: rgba(255, 255, 255, 0.02) !important;
     border: 2px dashed rgba(255, 255, 255, 0.1) !important;
-    border-radius: 14px !important;
-    padding: 12px !important;
+    border-radius: 12px !important;
+    padding: 10px !important;
 }
 .custom-progress-container {
     width: 100%;
     background-color: rgba(255, 255, 255, 0.05);
     border-radius: 10px;
     height: 8px;
-    margin-top: 4px;
+    margin-top: 6px;
     overflow: hidden;
 }
 .custom-progress-fill {
     height: 100%;
     border-radius: 10px;
-    transition: width 0.8s ease-in-out;
 }
 </style>
 """.replace('\n', ' ')
@@ -223,47 +222,33 @@ if not model_exists:
                 set_cached_dataset_path(path)
                 st.rerun()
 
-st.markdown("<br>", unsafe_allow_html=True)
-
 # ----------------- SECTION 2: About the Project -----------------
 st.markdown("### 📋 About the Project")
-st.markdown("""
-<div class="premium-card">
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
-        <div>
-            <h5 class="card-section-title">🛣️ Why Road Monitoring is Important?</h5>
-            <p class="card-text">
-                Road surface deterioration causes billions in vehicle repairs annually and poses serious risks to public safety. Traditional inspections are manual, time-consuming, and labor-intensive. Automated image-based monitoring enables city councils to continuously inspect large road networks, saving repair costs and enhancing civic traffic safety.
-            </p>
-        </div>
-        <div>
-            <h5 class="card-section-title">🧠 Role of CNNs in Computer Vision</h5>
-            <p class="card-text">
-                Convolutional Neural Networks (CNNs) emulate the human visual system by extracting spatial hierarchies of features—ranging from simple edges to complex shapes like potholes. The model automatically learns which texture variations indicate road defects, enabling automated classification with high accuracy.
-            </p>
-        </div>
-    </div>
-    <div style="margin-top: 20px;">
-        <h5 class="card-section-title">🏗️ Practical Industry Applications</h5>
-        <p class="card-text">
-            This system powers real-world municipal technologies. It can be integrated into municipal dashcams on garbage trucks, public buses, or drone surveys to map pavement health. Cities can then automatically schedule repairs, assign priority indices, and track road health over time.
-        </p>
-    </div>
-</div>
-""", unsafe_allow_html=True)
+with st.container(border=True):
+    col_about1, col_about2 = st.columns(2, gap="large")
+    with col_about1:
+        st.markdown('<h5 class="card-section-title">🛣️ Why Road Monitoring is Important?</h5>', unsafe_allow_html=True)
+        st.markdown('<p class="card-text">Road surface deterioration causes billions in vehicle repairs annually and poses serious risks to public safety. Traditional inspections are manual, time-consuming, and labor-intensive. Automated image-based monitoring enables city councils to continuously inspect large road networks, saving repair costs and enhancing civic traffic safety.</p>', unsafe_allow_html=True)
+    with col_about2:
+        st.markdown('<h5 class="card-section-title">🧠 Role of CNNs in Computer Vision</h5>', unsafe_allow_html=True)
+        st.markdown('<p class="card-text">Convolutional Neural Networks (CNNs) emulate the human visual system by extracting spatial hierarchies of features—ranging from simple edges to complex shapes like potholes. The model automatically learns which texture variations indicate road defects, enabling automated classification with high accuracy.</p>', unsafe_allow_html=True)
+        
+    st.markdown('<div style="margin-top: 24px;"></div>', unsafe_allow_html=True)
+    st.markdown('<h5 class="card-section-title">🏗️ Practical Industry Applications</h5>', unsafe_allow_html=True)
+    st.markdown('<p class="card-text">This system powers real-world municipal technologies. It can be integrated into municipal dashcams on garbage trucks, public buses, or drone surveys to map pavement health. Cities can then automatically schedule repairs, assign priority indices, and track road health over time.</p>', unsafe_allow_html=True)
 
 # ----------------- SECTION 3: Upload Area -----------------
 st.markdown("### 📤 Upload Road Image")
-st.markdown("<p style='font-size:14px; color:#94a3b8; margin-bottom: 15px;'>Drag and drop an image of a road surface or upload a file. Supported file formats: JPG, JPEG, PNG.</p>", unsafe_allow_html=True)
+with st.container(border=True):
+    st.markdown("<p style='font-size:14px; color:#94a3b8; margin-top: 0; margin-bottom: 15px;'>Drag and drop an image of a road surface or upload a file. Supported file formats: JPG, JPEG, PNG.</p>", unsafe_allow_html=True)
+    uploaded_file = st.file_uploader(
+        label="Upload road image",
+        type=["jpg", "jpeg", "png"],
+        label_visibility="collapsed"
+    )
+    # Option to use a sample test image
+    sample_img_choice = st.checkbox("Or use a random test image from the local dataset")
 
-uploaded_file = st.file_uploader(
-    label="Upload road image",
-    type=["jpg", "jpeg", "png"],
-    label_visibility="collapsed"
-)
-
-# Option to use a sample test image
-sample_img_choice = st.checkbox("Or use a random test image from the local dataset")
 image_bytes = None
 
 if sample_img_choice:
@@ -287,54 +272,74 @@ if image_bytes is not None:
     
     col_preview, col_predict = st.columns([1, 1], gap="large")
     
-    # ----------------- SECTION 4: Uploaded Image Preview -----------------
+    # ----------------- LEFT COLUMN: Preview & Recommendations -----------------
     with col_preview:
-        st.markdown("### 📸 Image Preview")
-        st.markdown("<div class='premium-card' style='text-align: center; padding: 12px;'>", unsafe_allow_html=True)
-        pil_img = Image.open(io.BytesIO(image_bytes))
-        st.image(pil_img, use_column_width=True)
-        st.markdown("</div>", unsafe_allow_html=True)
-        
-    # Prediction loop
+        # SECTION 4: Uploaded Image Preview
+        with st.container(border=True):
+            st.markdown("### 📸 Image Preview")
+            pil_img = Image.open(io.BytesIO(image_bytes))
+            st.image(pil_img, use_column_width=True)
+            
+        # SECTION 7: Recommendations
+        if model_exists:
+            try:
+                label, confidence, detailed_probs, _ = model_utils.predict_damage(MODEL_PATH, image_bytes)
+                if label == "pothole":
+                    rec_class = "rec-card rec-card-high"
+                    priority = "🚨 Immediate repair recommended."
+                    warning = "High-risk road condition detected. Potential vehicle axle damage or accident hazard."
+                elif label == "crack":
+                    rec_class = "rec-card rec-card-medium"
+                    priority = "⚠️ Scheduled sealing recommended."
+                    warning = "Moderate-risk road condition. Schedule bituminous crack sealing within the next 3 months to prevent future pothole formation."
+                else:
+                    rec_class = "rec-card rec-card-low"
+                    priority = "🟢 Routine auditing only."
+                    warning = "Safe road condition detected. Standard sewer manhole/drain structure identified. Perform annual audits."
+                    
+                with st.container(border=True):
+                    st.markdown("### 🛠️ Action Recommendations")
+                    st.markdown(
+                        f"""
+                        <div class="{rec_class}">
+                            <h5 style="margin-top:0; margin-bottom: 8px; font-weight: 700; font-size:15px;">{priority}</h5>
+                            <span style="font-size: 13.5px; line-height: 1.5; color: #f1f5f9; display: block;">
+                                {warning}
+                            </span>
+                        </div>
+                        """,
+                        unsafe_allow_html=True
+                    )
+            except Exception:
+                pass
+
+    # ----------------- RIGHT COLUMN: Predictions & Visualizations -----------------
     with col_predict:
         if not model_exists:
             st.error("Cannot perform prediction: Model is not trained yet.")
         else:
             with st.spinner("Analyzing road anomalies..."):
                 try:
-                    label, confidence, detailed_probs, _ = model_utils.predict_damage(
-                        MODEL_PATH,
-                        image_bytes
-                    )
+                    label, confidence, detailed_probs, _ = model_utils.predict_damage(MODEL_PATH, image_bytes)
                     
-                    # Determine Severity & styling mapping
                     if label == "pothole":
                         severity = "High"
                         sev_class = "sev-pill sev-pill-high"
-                        rec_class = "rec-card rec-card-high"
-                        priority = "🚨 Immediate repair recommended."
-                        warning = "High-risk road condition detected. Potential vehicle axle damage or accident hazard."
                         fill_color = "linear-gradient(90deg, #f87171, #ef4444)"
                     elif label == "crack":
                         severity = "Medium"
                         sev_class = "sev-pill sev-pill-medium"
-                        rec_class = "rec-card rec-card-medium"
-                        priority = "⚠️ Scheduled sealing recommended."
-                        warning = "Moderate-risk road condition. Schedule bituminous crack sealing within the next 3 months to prevent future pothole formation."
                         fill_color = "linear-gradient(90deg, #fbbf24, #f59e0b)"
-                    else:  # manhole
+                    else:
                         severity = "Low"
                         sev_class = "sev-pill sev-pill-low"
-                        rec_class = "rec-card rec-card-low"
-                        priority = "🟢 Routine auditing only."
-                        warning = "Safe road condition detected. Standard sewer manhole/drain structure identified. Perform annual audits."
                         fill_color = "linear-gradient(90deg, #34d399, #10b981)"
                         
-                    # ----------------- SECTION 5: Prediction Area -----------------
-                    st.markdown("### 📊 Prediction Details")
-                    st.markdown(
-                        f"""
-                        <div class="premium-card">
+                    # SECTION 5: Prediction Area
+                    with st.container(border=True):
+                        st.markdown("### 📊 Prediction Details")
+                        st.markdown(
+                            f"""
                             <div class="metric-row">
                                 <span class="metric-name">Damage Type</span>
                                 <span class="metric-value" style="text-transform: capitalize; color: #00f2fe;">{label} Detected</span>
@@ -353,58 +358,39 @@ if image_bytes is not None:
                                     <div class="custom-progress-fill" style="width: {confidence * 100:.1f}%; background: {fill_color};"></div>
                                 </div>
                             </div>
-                        </div>
-                        """, 
-                        unsafe_allow_html=True
-                    )
-                    
-                    # ----------------- SECTION 6: Visualization Area -----------------
-                    st.markdown("### 📈 Confidence Visualizer")
-                    st.markdown("<div class='premium-card' style='padding: 12px;'>", unsafe_allow_html=True)
-                    
-                    # Styled Plotly bar chart representing prediction probability
-                    prob_df = pd.DataFrame({
-                        "Anomaly": [c.capitalize() for c in detailed_probs.keys()],
-                        "Confidence (%)": [v * 100 for v in detailed_probs.values()]
-                    })
-                    
-                    fig = px.bar(
-                        prob_df,
-                        x="Confidence (%)",
-                        y="Anomaly",
-                        orientation="h",
-                        color="Anomaly",
-                        color_discrete_sequence=["#fbbf24", "#34d399", "#f87171"], # crack (yellow), manhole (green), pothole (red)
-                        template="plotly_dark",
-                        range_x=[0, 100]
-                    )
-                    
-                    fig.update_layout(
-                        paper_bgcolor="rgba(0,0,0,0)",
-                        plot_bgcolor="rgba(0,0,0,0)",
-                        showlegend=False,
-                        height=160,
-                        margin=dict(l=10, r=10, t=10, b=10),
-                        xaxis=dict(showgrid=False, zeroline=False),
-                        yaxis=dict(showgrid=False, title=None)
-                    )
-                    
-                    st.plotly_chart(fig, use_container_width=True)
-                    st.markdown("</div>", unsafe_allow_html=True)
-                    
-                    # ----------------- SECTION 7: Recommendations -----------------
-                    st.markdown("### 🛠️ Action Recommendations")
-                    st.markdown(
-                        f"""
-                        <div class="{rec_class}">
-                            <h5 style="margin-top:0; margin-bottom: 8px; font-weight: 700; font-size:16px;">{priority}</h5>
-                            <span style="font-size: 13.5px; line-height: 1.5; color: #f1f5f9; display: block;">
-                                {warning}
-                            </span>
-                        </div>
-                        """,
-                        unsafe_allow_html=True
-                    )
-                    
+                            """, 
+                            unsafe_allow_html=True
+                        )
+                        
+                    # SECTION 6: Visualization Area
+                    with st.container(border=True):
+                        st.markdown("### 📈 Confidence Visualizer")
+                        prob_df = pd.DataFrame({
+                            "Anomaly": [c.capitalize() for c in detailed_probs.keys()],
+                            "Confidence (%)": [v * 100 for v in detailed_probs.values()]
+                        })
+                        
+                        fig = px.bar(
+                            prob_df,
+                            x="Confidence (%)",
+                            y="Anomaly",
+                            orientation="h",
+                            color="Anomaly",
+                            color_discrete_sequence=["#fbbf24", "#34d399", "#f87171"],
+                            template="plotly_dark",
+                            range_x=[0, 100]
+                        )
+                        
+                        fig.update_layout(
+                            paper_bgcolor="rgba(0,0,0,0)",
+                            plot_bgcolor="rgba(0,0,0,0)",
+                            showlegend=False,
+                            height=140,
+                            margin=dict(l=10, r=10, t=10, b=10),
+                            xaxis=dict(showgrid=False, zeroline=False),
+                            yaxis=dict(showgrid=False, title=None)
+                        )
+                        st.plotly_chart(fig, use_container_width=True)
+                        
                 except Exception as e:
                     st.error(f"Error during inference: {e}")
