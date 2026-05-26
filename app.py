@@ -30,7 +30,7 @@ html, body, [class*="css"], .stMarkdown {
     font-family: 'Outfit', sans-serif !important;
 }
 .stApp {
-    background: radial-gradient(circle at top left, #121727 0%, #060812 100%) !important;
+    background: radial-gradient(circle at top left, #121829 0%, #060812 100%) !important;
     color: #e2e8f0;
 }
 /* Style section headings with light blue/cyan color and a left border indicator */
@@ -156,6 +156,88 @@ footer {visibility: hidden;}
     border: 1px dashed rgba(255, 255, 255, 0.1) !important;
     border-radius: 10px !important;
 }
+/* Premium SaaS Header Styling */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    background: linear-gradient(90deg, rgba(30, 41, 59, 0.4) 0%, rgba(15, 23, 42, 0.2) 100%);
+    border-bottom: 1px solid rgba(56, 189, 248, 0.15);
+    border-radius: 12px;
+    margin-bottom: 30px;
+}
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.header-logo {
+    font-size: 32px;
+    background: rgba(56, 189, 248, 0.08);
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.header-title {
+    color: #f1f5f9;
+    font-size: 23px;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1.2;
+}
+.gradient-accent {
+    background: linear-gradient(90deg, #00f2fe 0%, #4facfe 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.header-subtitle {
+    color: #94a3b8;
+    font-size: 13px;
+    margin: 4px 0 0 0;
+    font-weight: 400;
+}
+.header-right {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+.meta-badge {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+.pulse-active {
+    color: #34d399;
+    border-color: rgba(52, 211, 153, 0.2);
+}
+.pulse-dot {
+    width: 6px;
+    height: 6px;
+    background-color: #34d399;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #34d399;
+    animation: pulse 1.8s infinite;
+}
+.model-badge {
+    color: #38bdf8;
+    border-color: rgba(56, 189, 248, 0.2);
+}
+@keyframes pulse {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(52, 211, 153, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
+}
 </style>
 """.replace('\n', ' ')
 st.markdown(CSS_STYLE, unsafe_allow_html=True)
@@ -190,9 +272,29 @@ if st.session_state["dataset_path"] and st.session_state["df_metadata"] is None:
     except Exception:
         pass
 
-# ----------------- SECTION 1: Header (Top-Left) -----------------
-st.markdown('<h2 style="color: #f1f5f9; margin: 0; font-size: 24px; font-weight: 800; padding-bottom: 2px;">AI-Based Road Damage Detection System</h2>', unsafe_allow_html=True)
-st.markdown('<p style="color: #94a3b8; margin: 0; font-size: 13.5px; margin-bottom: 25px;">Smart City Infrastructure Monitoring using CNN</p>', unsafe_allow_html=True)
+# ----------------- SECTION 1: Header (World Class SaaS Banner) -----------------
+st.markdown(
+    """
+    <div class="header-container">
+        <div class="header-left">
+            <div class="header-logo">🛣️</div>
+            <div>
+                <h1 class="header-title">AI-Based <span class="gradient-accent">Road Damage Detection System</span></h1>
+                <p class="header-subtitle">Smart City Infrastructure Monitoring using CNN</p>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="meta-badge pulse-active">
+                <span class="pulse-dot"></span> SYSTEM STATUS: ONLINE
+            </div>
+            <div class="meta-badge model-badge">
+                CNN ENGINE: V1.0
+            </div>
+        </div>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 # Check model availability
 model_exists = os.path.exists(MODEL_PATH)
