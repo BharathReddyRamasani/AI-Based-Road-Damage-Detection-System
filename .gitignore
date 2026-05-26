@@ -17,11 +17,10 @@ env/
 dataset_path_cache.txt
 
 # Large model binaries and archives
-# (Keep ignored to prevent large commit sizes unless using Git LFS)
 *.keras
 *.h5
 *.zip
-road_damage_cnn_model.keras
+!road_damage_cnn_model.keras
 road_damage_cnn_model.keras.zip
 
 # Local data directories
